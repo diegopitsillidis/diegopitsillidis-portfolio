@@ -3,5 +3,10 @@
   "references": [
     { "path": "./tsconfig.app.json" },
     { "path": "./tsconfig.node.json" }
-  ]
+  ],
+  "compilerOptions": {
+    "jsx": "react-jsx",           // Use "react" if you're using React pre-17
+    "esModuleInterop": true,
+    "types": ["jest", "@testing-library/jest-dom"] // This tells TS to include jest-dom's custom matchers
+  }
 }
