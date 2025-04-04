@@ -2,8 +2,7 @@ import React from 'react';
 import Minesweeper from '../components/projects/Minesweeper';
 import SortingVis from '../components/algorithmVis/SortingVis';
 import AngularPathfindingEmbed from '../components/projects/AngularPathfinding';
-// import AngularPathfinding from '../components/AngularPathfinding';
-
+import ChatGPTChat from '../components/ChatGPTChat';
 
 const Projects: React.FC = () => {
   return (
@@ -17,6 +16,9 @@ const Projects: React.FC = () => {
       </div>
       <div className="w-full max-w-4xl space-y-6">
         <AngularPathfindingEmbed />
+      </div>
+      <div className="w-full max-w-4xl space-y-6">
+        <ChatGPTChat />
       </div>
     </div>
   );

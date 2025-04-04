@@ -12,6 +12,7 @@
     "test:debug": "react-scripts --inspect-brk test --runInBand --no-cache"
   },
   "dependencies": {
+    "axios": "^1.8.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.4.1"
@@ -22,6 +23,7 @@
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.6.1",
+    "@types/axios": "^0.9.36",
     "@types/jest": "^29.5.14",
     "@types/node": "^22.14.0",
     "@types/react": "^19.0.10",
