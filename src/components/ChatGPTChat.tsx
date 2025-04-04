@@ -52,7 +52,7 @@ const ChatGPTChat: React.FC = () => {
       }, {
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`//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 // Replace this with your key or use a secure proxy
+          'Authorization': `Bearer ${process.env.OPENAI_API_KEY}` // Replace this with your key or use a secure proxy
         }
       }) as { data: { choices: { message: { content: string } }[] } };
       setAnswer(response.data.choices[0].message.content);
