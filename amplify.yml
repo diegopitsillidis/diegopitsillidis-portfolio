@@ -10,7 +10,7 @@ frontend:
       commands:
         - npm run build
   artifacts:
-    baseDirectory: dist/diegopitsillidis-portfolio
+    baseDirectory: dist
     files:
       - '**/*'
   cache:
