@@ -9,7 +9,7 @@ interface DocumentData {
 const ChatGPTChat: React.FC = () => {
   const [query, setQuery] = useState('');
   const [documents, setDocuments] = useState<DocumentData[]>([]);
-  const [context, setContext] = useState('');
+  //const [context, setContext] = useState('');
   const [answer, setAnswer] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -33,7 +33,7 @@ const ChatGPTChat: React.FC = () => {
     setLoading(true);
     // Retrieve context based on the query
     const retrievedContext = retrieveContext(query);
-    setContext(retrievedContext);
+    //setContext(retrievedContext);
 
     // Construct a prompt that includes the context and the user query.
     const prompt = `Use the following context to answer the question:\n\n${retrievedContext}\n\nQuestion: ${query}\nAnswer:`;
