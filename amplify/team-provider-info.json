@@ -1,0 +1,23 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-diegopitsillidisport-dev-8fd4f-authRole",
+      "UnauthRoleArn": "arn:aws:iam::482419472146:role/amplify-diegopitsillidisport-dev-8fd4f-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::482419472146:role/amplify-diegopitsillidisport-dev-8fd4f-authRole",
+      "Region": "eu-central-1",
+      "DeploymentBucketName": "amplify-diegopitsillidisport-dev-8fd4f-deployment",
+      "UnauthRoleName": "amplify-diegopitsillidisport-dev-8fd4f-unauthRole",
+      "StackName": "amplify-diegopitsillidisport-dev-8fd4f",
+      "StackId": "arn:aws:cloudformation:eu-central-1:482419472146:stack/amplify-diegopitsillidisport-dev-8fd4f/67b5fdc0-11ad-11f0-8d71-0a99dd8b0d13",
+      "AmplifyAppId": "dw2inj1y3rth4"
+    },
+    "categories": {
+      "function": {
+        "openaiProxy": {
+          "deploymentBucketName": "amplify-diegopitsillidisport-dev-8fd4f-deployment",
+          "s3Key": "amplify-builds/openaiProxy-56426a57783149506456-build.zip"
+        }
+      }
+    }
+  }
+}

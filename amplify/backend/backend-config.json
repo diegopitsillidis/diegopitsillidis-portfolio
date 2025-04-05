@@ -1,0 +1,27 @@
+{
+  "function": {
+    "openaiProxy": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_openaiProxy_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "openaiProxy"
+        }
+      ]
+    },
+    "AMPLIFY_function_openaiProxy_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "openaiProxy"
+        }
+      ]
+    }
+  }
+}
