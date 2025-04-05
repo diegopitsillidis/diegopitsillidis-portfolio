@@ -1,11 +1,23 @@
-
-
 /**
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
  */
 const https = require('https');
 
 exports.handler = async (event) => {
+  // Handle CORS preflight requests
+  if (event.httpMethod === 'OPTIONS') {
+    return {
+      statusCode: 200,
+      //set in console
+      // headers: {
+      //   'Access-Control-Allow-Origin': '*',
+      //   'Access-Control-Allow-Methods': 'POST, OPTIONS',
+      //   'Access-Control-Allow-Headers': 'Content-Type, Authorization'
+      // },
+      body: '',
+    };
+  }
+
   const body = JSON.parse(event.body);
 
   const options = {
@@ -22,12 +34,17 @@ exports.handler = async (event) => {
     const req = https.request(options, (res) => {
       let data = '';
 
-      res.on('data', (chunk) => data += chunk);
+      res.on('data', (chunk) => (data += chunk));
       res.on('end', () => {
         resolve({
           statusCode: res.statusCode,
           body: data,
-          headers: { 'Access-Control-Allow-Origin': '*' },
+          //set in console
+          // headers: {
+          //   'Access-Control-Allow-Origin': '*',
+          //   'Access-Control-Allow-Methods': 'POST, OPTIONS',
+          //   'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+          // },
         });
       });
     });

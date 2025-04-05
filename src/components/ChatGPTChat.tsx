@@ -37,24 +37,24 @@ const ChatGPTChat: React.FC = () => {
     const prompt = `Use the following context to answer the question:\n\n${retrievedContext}\n\nQuestion: ${query}\nAnswer:`;
 
     try {
-      const response = await axios.post(
-        //lambda function URL to get secret
-        'https://eu-central-1.admin.amplifyapp.com/admin/login?appId=dw2inj1y3rth4&backendEnvironmentName=dev',
-        {
-          model: "gpt-3.5-turbo",
-          messages: [
-            { role: "system", content: "You are a helpful assistant." },
-            { role: "user", content: prompt }
-          ],
-          temperature: 0.7,
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json'
-            // No 'Authorization' header is needed on the client side
-          }
-        }
-      ) as { data: { choices: { message: { content: string } }[] } };
+        
+        const response = await axios.post(
+            'https://wpa4vo72aituzuijtfptzmjkoi0fqozs.lambda-url.eu-central-1.on.aws/',
+            {
+                model: "gpt-3.5-turbo",
+                messages: [
+                { role: "system", content: "You are a helpful assistant." },
+                { role: "user", content: prompt }
+                ],
+                temperature: 0.7,
+            },
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            }
+        ) as { data: { choices: { message: { content: string } }[] } };
+          
   
       setAnswer(response.data.choices[0].message.content);
     } catch (error) {
