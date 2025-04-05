@@ -35,13 +35,11 @@ const ChatGPTChat: React.FC = () => {
     const retrievedContext = retrieveContext(query);
     // Construct a prompt that includes the context and the user query.
     const prompt = `Use the following context to answer the question:\n\n${retrievedContext}\n\nQuestion: ${query}\nAnswer:`;
-  
-    const apiKey = import.meta.env.VITE_OPENAI_API_KEY;
-    console.log('API Key:', apiKey);
+
     try {
       const response = await axios.post(
         //lambda function URL to get secret
-        'https://eu-central-1.admin.amplifyapp.com/admin/login?appId=dw2inj1y3rth4&backendEnvironmentName=dev ',
+        'https://eu-central-1.admin.amplifyapp.com/admin/login?appId=dw2inj1y3rth4&backendEnvironmentName=dev',
         {
           model: "gpt-3.5-turbo",
           messages: [
