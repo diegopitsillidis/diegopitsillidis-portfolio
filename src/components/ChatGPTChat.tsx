@@ -31,30 +31,30 @@ const ChatGPTChat: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    // Retrieve context based on the query
+    // Retrieve context based on the query from the local documents (for example)
     const retrievedContext = retrieveContext(query);
     // Construct a prompt that includes the context and the user query.
     const prompt = `Use the following context to answer the question:\n\n${retrievedContext}\n\nQuestion: ${query}\nAnswer:`;
-
+  
     try {
-        
-        const response = await axios.post(
-            'https://wpa4vo72aituzuijtfptzmjkoi0fqozs.lambda-url.eu-central-1.on.aws/',
-            {
-                model: "gpt-3.5-turbo",
-                messages: [
-                { role: "system", content: "You are a helpful assistant." },
-                { role: "user", content: prompt }
-                ],
-                temperature: 0.7,
-            },
-            {
-                headers: {
-                    'Content-Type': 'application/json',
-                }
-            }
-        ) as { data: { choices: { message: { content: string } }[] } };
-          
+      const response = await axios.post(
+        'https://wpa4vo72aituzuijtfptzmjkoi0fqozs.lambda-url.eu-central-1.on.aws/',
+        {
+          // Include the query in your payload
+          query: query,
+          model: "gpt-4o-mini",
+          messages: [
+            { role: "system", content: "You are a helpful assistant." },
+            { role: "user", content: prompt }
+          ],
+          temperature: 0.7,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        }
+      ) as { data: { choices: { message: { content: string } }[] } };
   
       setAnswer(response.data.choices[0].message.content);
     } catch (error) {
@@ -64,44 +64,6 @@ const ChatGPTChat: React.FC = () => {
       setLoading(false);
     }
   };
-  
-// for local use only
-//   const handleSubmit = async (e: React.FormEvent) => {
-//     e.preventDefault();
-//     setLoading(true);
-//     // Retrieve context based on the query
-//     const retrievedContext = retrieveContext(query);
-//     //setContext(retrievedContext);
-
-//     // Construct a prompt that includes the context and the user query.
-//     const prompt = `Use the following context to answer the question:\n\n${retrievedContext}\n\nQuestion: ${query}\nAnswer:`;
-
-//     try {
-//       // For demonstration, we call the ChatGPT API.
-//       // In a production app, you would not expose your API key in the client.
-//       // Instead, use a serverless function or backend proxy.
-//       const apiKey = import.meta.env.VITE_OPENAI_API_KEY;
-//       const response = await axios.post('https://api.openai.com/v1/chat/completions', {
-//         model: "gpt-3.5-turbo",
-//         messages: [
-//           { role: "system", content: "You are a helpful assistant." },
-//           { role: "user", content: prompt }
-//         ],
-//         temperature: 0.7
-//       }, {
-//         headers: {
-//           'Content-Type': 'application/json',
-//           'Authorization': `Bearer ${apiKey}`
-//         }
-//       }) as { data: { choices: { message: { content: string } }[] } };
-//       setAnswer(response.data.choices[0].message.content);
-//     } catch (error) {
-//       console.error(error);
-//       setAnswer('An error occurred while fetching the answer.');
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
 
   return (
     <div className="p-4 border rounded bg-white">
