@@ -11,9 +11,6 @@ const Minesweeper: React.FC = () => {
         className="w-full h-[600px]"
         frameBorder="0"
       />
-      <p className="mt-2 text-sm text-gray-600">
-        Explore the demo above to see the Minesweeper game in action.
-      </p>
     </div>
   );
 };

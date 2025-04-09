@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 
 interface DocumentData {
@@ -6,12 +6,18 @@ interface DocumentData {
   text: string;
 }
 
+interface Message {
+  role: 'user' | 'assistant';
+  content: string;
+}
+
 const ChatGPTChat: React.FC = () => {
   const [query, setQuery] = useState('');
   const [documents, setDocuments] = useState<DocumentData[]>([]);
-  //const [context, setContext] = useState('');
-  const [answer, setAnswer] = useState('');
+  //const [answer, setAnswer] = useState('');
   const [loading, setLoading] = useState(false);
+  const [conversation, setConversation] = useState<Message[]>([]);
+  const chatEndRef = useRef<HTMLDivElement>(null);
 
   // Load documents on mount
   useEffect(() => {
@@ -20,6 +26,11 @@ const ChatGPTChat: React.FC = () => {
       .then((data: DocumentData[]) => setDocuments(data))
       .catch((err) => console.error('Error loading documents:', err));
   }, []);
+
+  // Auto-scroll to the bottom when the conversation updates.
+  useEffect(() => {
+    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [conversation]);
 
   // A very simple retrieval function that finds docs containing keywords from the query.
   const retrieveContext = (q: string): string => {
@@ -31,6 +42,10 @@ const ChatGPTChat: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+
+    // Save user query to conversation history:
+    setConversation(prev => [...prev, { role: 'user', content: query }]);
+
     // Retrieve context based on the query from the local documents (for example)
     const retrievedContext = retrieveContext(query);
     // Construct a prompt that includes the context and the user query.
@@ -40,7 +55,6 @@ const ChatGPTChat: React.FC = () => {
       const response = await axios.post(
         'https://wpa4vo72aituzuijtfptzmjkoi0fqozs.lambda-url.eu-central-1.on.aws/',
         {
-          // Include the query in your payload
           query: query,
           model: "gpt-4o-mini",
           messages: [
@@ -56,40 +70,67 @@ const ChatGPTChat: React.FC = () => {
         }
       ) as { data: { choices: { message: { content: string } }[] } };
   
-      setAnswer(response.data.choices[0].message.content);
+      const assistantResponse = response.data.choices[0].message.content;
+      // Append assistant's reply to the conversation history:
+      setConversation(prev => [...prev, { role: 'assistant', content: assistantResponse }]);
+      //setAnswer(response.data.choices[0].message.content);
     } catch (error) {
       console.error(error);
-      setAnswer('An error occurred while fetching the answer.');
+      //setAnswer('An error occurred while fetching the answer.');
     } finally {
       setLoading(false);
+      setQuery('');
     }
   };
 
   return (
-    <div className="p-4 border rounded bg-white">
-      <h2 className="text-xl font-bold mb-2">Chat with ChatGPT (with RAG)</h2>
-      <form onSubmit={handleSubmit}>
+    <div className="max-w-4xl mx-auto p-4">
+      <h2 className="text-2xl font-bold mb-4">Chat with ChatGPT (with RAG)</h2>
+      <div className="h-96 border rounded-lg p-4 overflow-y-auto bg-gray-50">
+        {conversation.map((msg, index) => {
+          const isUser = msg.role === 'user';
+          const bubbleColor = isUser ? 'bg-green-200' : 'bg-white';    // Change these colors as you like
+          const textColor = 'text-gray-900';                          // Ensure text is dark enough
+
+          return (
+            <div
+              key={index}
+              className={`mb-3 flex ${isUser ? 'justify-end' : 'justify-start'}`}
+            >
+              <div
+                className={`${bubbleColor} ${textColor} px-4 py-2 max-w-md rounded-md shadow`}
+                style={{ whiteSpace: 'pre-wrap' }}
+              >
+                {msg.content}
+              </div>
+            </div>
+          );
+        })}
+        <div ref={chatEndRef} />
+      </div>
+
+      {/* Input area */}
+      <form onSubmit={handleSubmit} className="mt-4">
         <textarea
-          className="w-full border p-2 mb-2"
+          className="w-full border p-2 rounded-md mb-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
           rows={4}
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Type your question here..."
+          style={{ resize: 'none' }}
         />
         <button
           type="submit"
-          className="px-4 py-2 bg-green-500 text-white"
           disabled={loading}
+          className={`w-full px-4 py-2 rounded-md text-white font-semibold ${
+            loading
+              ? 'bg-gray-400 cursor-not-allowed'
+              : 'bg-green-500 hover:bg-green-600'
+          }`}
         >
           {loading ? 'Loading...' : 'Submit'}
         </button>
       </form>
-      {answer && (
-        <div className="mt-4 p-2 border rounded bg-gray-100">
-          <strong>Answer:</strong>
-          <p>{answer}</p>
-        </div>
-      )}
     </div>
   );
 };
