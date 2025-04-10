@@ -1,16 +1,33 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Minesweeper from '../components/projects/Minesweeper';
 import SortingVis from '../components/algorithmVis/SortingVis';
 import AngularPathfindingEmbed from '../components/projects/AngularPathfinding';
 import ChatGPTChat from '../components/ChatGPTChat';
 import ProjectCard from '../components/ProjectCard';
+import { useLocation } from 'react-router-dom';
 
 const Projects: React.FC = () => {
+  const location = useLocation();
+
+  // Scroll to the element indicated by the hash when location.hash changes
+  useEffect(() => {
+    if (location.hash) {
+      // Delay scrolling slightly to ensure the element is rendered
+      setTimeout(() => {
+        const element = document.getElementById(location.hash.substring(1));
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 300);
+    }
+  }, [location]);
+
   return (
-    <div className="min-h-screen p-4">
+    <div className="min-h-screen p-4 bg-gradient-to-b from-gray-800 to-gray-900 text-white">
       <h1 className="text-4xl font-bold text-center mb-8">Projects</h1>
       <div className="max-w-4xl mx-auto space-y-12">
         <ProjectCard 
+          id="minesweeper"
           title="Minesweeper Game" 
           documentation={
             <div>
@@ -55,6 +72,7 @@ const Projects: React.FC = () => {
         </ProjectCard>
 
         <ProjectCard 
+          id="algorithm-visualizations"
           title="Algorithm Visualizations" 
           documentation={
             <div>
@@ -71,6 +89,7 @@ const Projects: React.FC = () => {
         </ProjectCard>
 
         <ProjectCard 
+          id="angular-pathfinding"
           title="Angular Pathfinding Visualization" 
           documentation={
             <div>
@@ -87,6 +106,7 @@ const Projects: React.FC = () => {
         </ProjectCard>
 
         <ProjectCard 
+          id="chatgpt"
           title="ChatGPT Integration with Retrieval-Augmented Generation (RAG)" 
           documentation={
             <div>
