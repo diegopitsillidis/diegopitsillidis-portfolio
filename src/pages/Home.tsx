@@ -9,8 +9,7 @@ const Home: React.FC = () => {
           Hi, I'm Diego Pitsillidis
         </h1>
         <p className="text-lg md:text-xl mb-8 max-w-2xl mx-auto">
-          I am a passionate Full-Stack Developer creating modern web applications using mostly .Net and Angular.
-          This portfolio showcases a responsive and test-driven web application using React and includes a variety of projects that demonstrate my skills using various technologies such as AWS Lamda/SES/Amplify, a CI/CD pipeline, OpenAi Api integration and more.
+          I am a passionate Full-Stack Developer building modern web applications using primarily .Net and Angular. This portfolio features a responsive, test-driven React app and projects showcasing my skills with AWS (Lambda, SES, Amplify), CI/CD pipelines, OpenAI API integration, and more.
         </p>
         <div className="flex justify-center space-x-4">
           <a
