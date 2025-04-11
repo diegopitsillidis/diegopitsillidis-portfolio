@@ -34,7 +34,7 @@ const About: React.FC = () => {
         <section className="mb-8">
           <h2 className="text-3xl font-bold mb-3">Skills &amp; Technologies</h2>
           <ul className="list-disc ml-6">
-            <li>React, Angular, .NET</li>
+            <li>React, Angular, .NET, SQL</li>
             <li>Test-Driven Development (TDD), CI/CD pipelines, and automated testing with GitHub Actions</li>
             <li>Modern toolchain: Webpack, Babel, Chromatic, Stryker, and Storybook</li>
             <li>AWS Cloud services and serverless architectures</li>

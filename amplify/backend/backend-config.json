@@ -4,6 +4,12 @@
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
+    },
+    "sendEmailFunction": {
+      "build": true,
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
     }
   },
   "parameters": {
@@ -20,6 +26,22 @@
         {
           "category": "function",
           "resourceName": "openaiProxy"
+        }
+      ]
+    },
+    "AMPLIFY_function_sendEmailFunction_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "sendEmailFunction"
+        }
+      ]
+    },
+    "AMPLIFY_function_sendEmailFunction_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "sendEmailFunction"
         }
       ]
     }

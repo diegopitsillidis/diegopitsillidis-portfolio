@@ -16,6 +16,10 @@
         "openaiProxy": {
           "deploymentBucketName": "amplify-diegopitsillidisport-dev-8fd4f-deployment",
           "s3Key": "amplify-builds/openaiProxy-6b414e4c6a346f437966-build.zip"
+        },
+        "sendEmailFunction": {
+          "deploymentBucketName": "amplify-diegopitsillidisport-dev-8fd4f-deployment",
+          "s3Key": "amplify-builds/sendEmailFunction-395a6c42617158346278-build.zip"
         }
       }
     }
