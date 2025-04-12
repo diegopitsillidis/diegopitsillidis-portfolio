@@ -1,20 +1,18 @@
 import React, { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import Minesweeper from '../components/projects/Minesweeper';
 import SortingVis from '../components/algorithmVis/SortingVis';
 import AngularPathfindingEmbed from '../components/projects/AngularPathfinding';
 import ChatGPTChat from '../components/ChatGPTChat';
 import ProjectCard from '../components/ProjectCard';
-import { useLocation } from 'react-router-dom';
 
 const Projects: React.FC = () => {
   const location = useLocation();
 
-  // Scroll to the element indicated by the hash when location.hash changes
   useEffect(() => {
     if (location.hash) {
-      // Delay scrolling slightly to ensure the element is rendered
       setTimeout(() => {
-        const element = document.getElementById(location.hash.substring(1));
+        const element = document.getElementById(location.hash.slice(1));
         if (element) {
           element.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
@@ -32,10 +30,9 @@ const Projects: React.FC = () => {
           documentation={
             <div>
               <p>
-                This Minesweeper project is a showcase of robust, test-driven development (TDD) in React.
-                It was developed as part of an in-depth Udemy course that covered advanced React techniques and testing.
+                This Minesweeper project demonstrates robust, test-driven development (TDD) with React.
+                It uses a comprehensive CI/CD pipeline enforcing strict testing, code coverage, and linting.
               </p>
-              <p><strong>Key Aspects:</strong></p>
               <ul className="list-disc ml-6">
                 <li>
                   <strong>React & TDD:</strong> Built entirely with React following a TDD methodology. Every new feature and component is accompanied by unit, integration, and end-to-end tests.
@@ -73,7 +70,7 @@ const Projects: React.FC = () => {
 
         <ProjectCard 
           id="algorithm-visualizations"
-          title="Algorithm Visualizations" 
+          title="Sorting Algorithm Visualizations" 
           documentation={
             <div>
               <p>This section includes visualizations for various algorithms, such as bubble sort, insertion sort, and selection sort:</p>
@@ -107,18 +104,19 @@ const Projects: React.FC = () => {
 
         <ProjectCard 
           id="chatgpt"
-          title="ChatGPT Integration with Retrieval-Augmented Generation (RAG)" 
+          title="ChatGPT Integration with RAG" 
           documentation={
             <div>
-              <p>This project integrates ChatGPT through a serverless Lambda function to deliver a secure AI chat experience, enhanced with RAG:</p>
+              <p>
+                Integrates ChatGPT with Retrieval-Augmented Generation by using precomputed document embeddings.
+              </p>
               <ul className="list-disc ml-6">
                 <li>Retrieves context from precomputed document embeddings.</li>
                 <li>Uses OpenAI's GPT API for generating intelligent responses.</li>
                 <li>Ensures API security with backend proxy and AWS Amplify functions.</li>
                 <li>Highlights full-stack development skills, using React for UI and AWS Lambda for secure backend logic.</li>
               </ul>
-              <br />
-              <p>Try asking "who is diego"</p>
+              <p>Try asking, "who is Diego" to see the context in action.</p>
             </div>
           }
         >

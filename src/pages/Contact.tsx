@@ -20,11 +20,10 @@ const Contact: React.FC = () => {
       }
 
       const response = await axios.post<ResponseData>(
-        'https://4unit4svmefuysnt6fp7y2b6gy0dllja.lambda-url.eu-central-1.on.aws/',
+        'https://<your-ses-lambda-endpoint>/',  // Replace with your SES Lambda URL
         { name, email, message },
         { headers: { 'Content-Type': 'application/json' } }
       );
-
       if (response.data.success) {
         setStatus('Thank you for contacting me! I will get back to you shortly.');
       } else {
@@ -43,11 +42,11 @@ const Contact: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-800 to-gray-900 text-white pt-8 pb-16">
-      <div className="max-w-4xl mx-auto p-8">
+      <div className="max-w-4xl mx-auto px-4">
         <h1 className="text-4xl font-bold mb-6 text-center">Contact Me</h1>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label htmlFor="name" className="block text-gray-300 font-semibold mb-1">
+            <label htmlFor="name" className="block text-gray-700 font-semibold mb-1">
               Name
             </label>
             <input
@@ -56,12 +55,12 @@ const Contact: React.FC = () => {
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Your Name"
-              className="w-full border border-gray-400 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
               required
             />
           </div>
           <div>
-            <label htmlFor="email" className="block text-gray-300 font-semibold mb-1">
+            <label htmlFor="email" className="block text-gray-700 font-semibold mb-1">
               Email
             </label>
             <input
@@ -70,12 +69,12 @@ const Contact: React.FC = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="you@example.com"
-              className="w-full border border-gray-400 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
               required
             />
           </div>
           <div>
-            <label htmlFor="message" className="block text-gray-300 font-semibold mb-1">
+            <label htmlFor="message" className="block text-gray-700 font-semibold mb-1">
               Message
             </label>
             <textarea
@@ -84,7 +83,7 @@ const Contact: React.FC = () => {
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               placeholder="Your message..."
-              className="w-full border border-gray-400 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
               required
             />
           </div>
@@ -101,10 +100,10 @@ const Contact: React.FC = () => {
             {status}
           </div>
         )}
-        <div className="mt-8 text-center text-gray-300">
+        <div className="mt-8 text-center text-gray-700">
           <p>Or get in touch directly:</p>
           <p>
-            Email: <a className="text-blue-400 hover:underline" href="mailto:diego.pitsillides@gmail.com">diego.pitsillides@gmail.com</a>
+            Email: <a className="text-blue-600 hover:underline" href="mailto:diego.pitsillides@gmail.com">diego.pitsillides@gmail.com</a>
           </p>
         </div>
       </div>

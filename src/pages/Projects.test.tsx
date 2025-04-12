@@ -10,7 +10,6 @@ describe('Projects Page', () => {
 
   test('renders React Minesweeper project preview', () => {
     render(<Projects />);
-    // Assuming your Minesweeper component has a test id "minesweeper-preview"
     const minesweeperPreview = screen.getByTestId('minesweeper-preview');
     expect(minesweeperPreview).toBeInTheDocument();
   });
